@@ -63,6 +63,12 @@ paths:
           required: true
           description: ID der gewählten Versicherung
         - in: formData
+          name: inceptionDate
+          type: string
+          format: date
+          required: true
+          description: Versicherungsbeginn
+        - in: formData
           name: manufacturer
           type: string
           required: true
