@@ -1,0 +1,256 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: SunRocks API
+  termsOfService: 'http://sunrocks.co/terms/'
+  contact:
+    email: david@trigo.at
+host: api.sunrocks.co
+basePath: /
+tags:
+  - name: public
+    description: public accessible endpoints
+schemes:
+  - https
+paths:
+  /insurances:
+    get:
+      tags:
+        - public
+      summary: List of insurances
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+              insurances:
+                type: array
+                items:
+                  $ref: '#/definitions/Insurance'
+      security:
+        - api_key: []
+  /sales:
+    post:
+      tags:
+        - public
+      summary: create sale
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      responses:
+        '201':
+          description: successful created
+      parameters:
+        - in: formData
+          name: invoice
+          type: file
+          required: true
+          description: Rechnung (PDF)
+        - in: formData
+          name: storeNumber
+          type: string
+          required: true
+          description: Filialen ID (wird pro Filiale bekannt gegeben)
+        - in: formData
+          name: insuranceId
+          type: string
+          required: true
+          description: ID der gewählten Versicherung
+        - in: formData
+          name: manufacturer
+          type: string
+          required: true
+          description: Hersteller des Gerätes
+        - in: formData
+          name: model
+          type: string
+          required: true
+          description: 'Modell (zB iPhone 6S,...)'
+        - in: formData
+          name: serialNumber
+          type: string
+          required: true
+          description: Seriennummer
+        - in: formData
+          name: retailPrice
+          type: number
+          required: true
+          description: Verkaufspreis lt. Rechnung
+        - in: formData
+          name: sellingDate
+          type: string
+          format: date
+          required: true
+          description: Verkaufsdatum
+        - in: formData
+          name: customerNumber
+          type: string
+          required: true
+          description: Kundennummer (aus externem System)
+        - in: formData
+          name: isCompany
+          type: boolean
+          description: Firma ja/nein
+        - in: formData
+          name: inputTaxDeduction
+          type: boolean
+          description: Vorsteuerabzug ja/nein
+        - in: formData
+          name: companyName
+          type: string
+          description: Firmenname (wenn Firma)
+        - in: formData
+          name: firstName
+          type: string
+          description: Vorname
+        - in: formData
+          name: lastName
+          type: string
+          description: Nachname
+        - in: formData
+          name: vat
+          type: string
+          description: UID Nummer
+        - in: formData
+          name: emailAddress
+          type: string
+          format: email
+          description: E-Mail Adresse
+  /claims:
+    post:
+      tags:
+        - public
+      summary: create new claim
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      responses:
+        '201':
+          description: successful created
+          schema:
+            type: object
+            properties:
+              claimNumber:
+                type: string
+              state:
+                type: string
+      parameters:
+        - in: formData
+          name: repairInvoice
+          type: file
+          description: Reparaturrechnung
+        - in: formData
+          name: complain
+          type: file
+          description: Polizeiliche Anzeige
+        - in: formData
+          name: image1
+          type: file
+          required: true
+          description: Bild
+        - in: formData
+          name: image2
+          type: file
+          description: Bild
+        - in: formData
+          name: image3
+          type: file
+          description: Bild
+        - in: formData
+          name: image4
+          type: file
+          description: Bild
+        - in: formData
+          name: image5
+          type: file
+          description: Bild
+        - in: formData
+          name: storeNumber
+          type: string
+          required: true
+          description: Filialen ID (wird pro Filiale bekannt gegeben)
+        - in: formData
+          name: serialNumber
+          type: string
+          required: true
+          description: Seriennummer
+        - in: formData
+          name: claimType
+          type: string
+          required: true
+          enum:
+            - burglary
+            - robbery
+            - other
+          description: Schadensart
+        - in: formData
+          name: description
+          type: string
+          required: true
+          description: Beschreibung Hergang
+        - in: formData
+          name: fairValue
+          type: number
+          required: true
+          description: Schadenhöhe
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+definitions:
+  Insurance:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      name:
+        type: string
+        description: Name
+      inputTaxDeduction:
+        type: boolean
+        default: false
+        description: Vorsteuerabzugsberechtigt
+      insuranceType:
+        type: string
+        description: Versicherungstyp (zB Elektronikversicherung o. Garantieversicherung)
+      insuranceProvider:
+        type: string
+        description: Risikoträger
+      deviceCategory:
+        type: string
+        description: 'Kategorie (Smartphone, Tablet, PC/Notebook)'
+      duration:
+        type: integer
+        default: 2
+        description: Laufzeit in Jahren
+      costs:
+        type: array
+        items:
+          type: object
+          properties:
+            from:
+              type: number
+            to:
+              type: number
+            cost:
+              type: number
+        description: EK nach Preisbereich
+      fairValues:
+        type: array
+        items:
+          type: object
+          properties:
+            year:
+              type: integer
+            value:
+              type: number
+        description: Zeitwerte
