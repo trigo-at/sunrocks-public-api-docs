@@ -1,25 +1,21 @@
 swagger: '2.0'
 info:
-  version: 1.0.0
+  version: 2.0.0
   title: SunRocks API
   termsOfService: 'http://sunrocks.co/terms/'
   contact:
     email: david@trigo.at
 host: api.sunrocks.co
 basePath: /
-tags:
-  - name: public
-    description: public accessible endpoints
 schemes:
   - https
 paths:
   /insurances:
     get:
-      tags:
-        - public
       summary: List of insurances
       produces:
         - application/json
+        - application/xml
       responses:
         '200':
           description: successful operation
@@ -32,20 +28,37 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/Insurance'
+                xml:
+                  name: Insurances
+                  wrapped: true
+            xml:
+              name: InsuranceResponse
       security:
         - api_key: []
   /sales:
     post:
-      tags:
-        - public
-      summary: create sale
+      summary: create sale entry
       produces:
         - application/json
+        - application/xml
       consumes:
         - multipart/form-data
       responses:
         '201':
-          description: successful created
+          description: Created
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+            xml:
+              name: CreateSaleResponse
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
       parameters:
         - in: formData
           name: invoice
@@ -130,11 +143,10 @@ paths:
           description: E-Mail Adresse
   /claims:
     post:
-      tags:
-        - public
       summary: create new claim
       produces:
         - application/json
+        - application/xml
       consumes:
         - multipart/form-data
       responses:
@@ -147,6 +159,14 @@ paths:
                 type: string
               state:
                 type: string
+            xml:
+              name: CreateClaimResponse
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
       parameters:
         - in: formData
           name: repairInvoice
@@ -228,9 +248,6 @@ definitions:
       insuranceType:
         type: string
         description: Versicherungstyp (zB Elektronikversicherung o. Garantieversicherung)
-      insuranceProvider:
-        type: string
-        description: Risikoträger
       deviceCategory:
         type: string
         description: 'Kategorie (Smartphone, Tablet, PC/Notebook)'
@@ -238,25 +255,5 @@ definitions:
         type: integer
         default: 2
         description: Laufzeit in Jahren
-      costs:
-        type: array
-        items:
-          type: object
-          properties:
-            from:
-              type: number
-            to:
-              type: number
-            cost:
-              type: number
-        description: EK nach Preisbereich
-      fairValues:
-        type: array
-        items:
-          type: object
-          properties:
-            year:
-              type: integer
-            value:
-              type: number
-        description: Zeitwerte
+    xml:
+      name: Insurance
