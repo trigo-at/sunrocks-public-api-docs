@@ -63,13 +63,16 @@ paths:
         - in: formData
           name: invoice
           type: file
-          required: true
           description: Rechnung (PDF)
         - in: formData
           name: storeNumber
           type: string
           required: true
           description: Filialen ID (wird pro Filiale bekannt gegeben)
+        - in: formData
+          name: employeeNumber
+          type: string
+          description: externe Mitarbeiter Nummer
         - in: formData
           name: insuranceId
           type: string
@@ -110,10 +113,10 @@ paths:
         - in: formData
           name: customerNumber
           type: string
-          required: true
           description: Kundennummer (aus externem System)
         - in: formData
           name: isCompany
+          required: true
           type: boolean
           description: Firma ja/nein
         - in: formData
@@ -123,23 +126,24 @@ paths:
         - in: formData
           name: companyName
           type: string
-          description: Firmenname (wenn Firma)
+          description: Firmenname (wenn Firma); Pflichtfeld wenn isCompany gesetzt wurde
         - in: formData
           name: firstName
           type: string
-          description: Vorname
+          description: Vorname; Pflichtfeld wenn isCompany nicht gesetzt wurde
         - in: formData
           name: lastName
           type: string
-          description: Nachname
+          description: Nachname; Pflichtfeld wenn isCompany nicht gesetzt wurde
         - in: formData
           name: vat
           type: string
-          description: UID Nummer
+          description: UID Nummer; Pflichtfeld wenn inputTaxDeduction gesetzt wurde
         - in: formData
           name: emailAddress
           type: string
           format: email
+          required: true
           description: E-Mail Adresse
   /claims:
     post:
@@ -169,6 +173,11 @@ paths:
           description: Forbidden
       parameters:
         - in: formData
+          name: claimNumber
+          type: string
+          required: true
+          description: Externe Ticketnummer
+        - in: formData
           name: repairInvoice
           type: file
           description: Reparaturrechnung
@@ -184,6 +193,7 @@ paths:
         - in: formData
           name: image2
           type: file
+          required: true
           description: Bild
         - in: formData
           name: image3
@@ -208,6 +218,12 @@ paths:
           required: true
           description: Seriennummer
         - in: formData
+          name: damageDate
+          type: string
+          format: date
+          required: true
+          description: Schadendatum
+        - in: formData
           name: claimType
           type: string
           required: true
@@ -226,6 +242,11 @@ paths:
           type: number
           required: true
           description: Schadenhöhe
+        - in: formData
+          name: replacementValue
+          type: number
+          required: true
+          description: Neuwert am Schadentag
 securityDefinitions:
   api_key:
     type: apiKey
