@@ -180,10 +180,12 @@ paths:
         - in: formData
           name: repairInvoice
           type: file
+          required: true
           description: Reparaturrechnung
         - in: formData
           name: complain
           type: file
+          required: true
           description: Polizeiliche Anzeige
         - in: formData
           name: image1
