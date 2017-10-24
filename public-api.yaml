@@ -105,6 +105,11 @@ paths:
           required: true
           description: Verkaufspreis lt. Rechnung
         - in: formData
+          name: insuranceRetailPrice
+          type: number
+          required: true
+          description: Verkaufspreis der Versicherung
+        - in: formData
           name: sellingDate
           type: string
           format: date
