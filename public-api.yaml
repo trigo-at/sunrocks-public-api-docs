@@ -5,8 +5,8 @@ info:
   termsOfService: 'http://sunrocks.co/terms/'
   contact:
     email: david@trigo.at
-host: api.sunrocks.co
-basePath: /
+host: sunrocks.apps.trigo.io
+basePath: /api/public
 schemes:
   - https
 paths:
@@ -49,7 +49,7 @@ paths:
           schema:
             type: object
             properties:
-              id:
+              resId:
                 type: string
             xml:
               name: CreateSaleResponse
@@ -74,10 +74,10 @@ paths:
           type: string
           description: externe Mitarbeiter Nummer
         - in: formData
-          name: insuranceId
+          name: insuranceCode
           type: string
           required: true
-          description: ID der gewählten Versicherung
+          description: Code der gewählten Versicherung
         - in: formData
           name: inceptionDate
           type: string
@@ -145,7 +145,7 @@ paths:
           type: string
           description: UID Nummer; Pflichtfeld wenn inputTaxDeduction gesetzt wurde
         - in: formData
-          name: emailAddress
+          name: email
           type: string
           format: email
           required: true
@@ -257,13 +257,13 @@ paths:
 securityDefinitions:
   api_key:
     type: apiKey
-    name: api_key
+    name: x-api-key
     in: header
 definitions:
   Insurance:
     type: object
     properties:
-      id:
+      _id:
         type: string
         format: uuid
       name:
