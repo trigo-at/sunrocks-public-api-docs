@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 2.0.0
+  version: 3.0.0
   title: SunRocks API
   termsOfService: 'http://sunrocks.co/terms/'
   contact:
@@ -118,6 +118,7 @@ paths:
         - in: formData
           name: customerNumber
           type: string
+          required: true
           description: Kundennummer (aus externem System)
         - in: formData
           name: isCompany
@@ -127,19 +128,28 @@ paths:
         - in: formData
           name: inputTaxDeduction
           type: boolean
+          required: true
           description: Vorsteuerabzug ja/nein
         - in: formData
-          name: companyName
+          name: customerName
           type: string
-          description: Firmenname (wenn Firma); Pflichtfeld wenn isCompany gesetzt wurde
+          required: true
+          description: Firmenname (wenn Firma) oder Vor- und Nachname
         - in: formData
-          name: firstName
+          name: street
           type: string
-          description: Vorname; Pflichtfeld wenn isCompany nicht gesetzt wurde
+          required: true
+          description: Straße + Nummer
         - in: formData
-          name: lastName
+          name: zipCode
           type: string
-          description: Nachname; Pflichtfeld wenn isCompany nicht gesetzt wurde
+          required: true
+          description: PLZ
+        - in: formData
+          name: city
+          type: string
+          required: true
+          description: Stadt
         - in: formData
           name: vat
           type: string
