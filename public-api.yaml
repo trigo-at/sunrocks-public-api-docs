@@ -240,6 +240,14 @@ paths:
           required: true
           description: Seriennummer
         - in: formData
+          name: newSerialNumber
+          type: string
+          description: Neue Seriennummer
+        - in: formData
+          name: newSerialNumberReason
+          type: string
+          description: Grund füur neue Seriennummer
+        - in: formData
           name: damageDate
           type: string
           format: date
@@ -252,6 +260,11 @@ paths:
           enum:
             - burglary
             - robbery
+            - vandalism
+            - broken
+            - fire
+            - liquid
+            - warranty
             - other
           description: Schadensart
         - in: formData
