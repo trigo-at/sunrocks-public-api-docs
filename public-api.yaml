@@ -198,6 +198,11 @@ paths:
           required: true
           description: Reparaturrechnung
         - in: formData
+          name: invoice
+          type: file
+          description: Rechnung (PDF)
+          required: true
+        - in: formData
           name: complain
           type: file
           required: true
