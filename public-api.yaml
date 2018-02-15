@@ -151,6 +151,10 @@ paths:
           required: true
           description: Stadt
         - in: formData
+          name: country
+          type: string
+          description: Land (optional)
+        - in: formData
           name: vat
           type: string
           description: UID Nummer; Pflichtfeld wenn inputTaxDeduction gesetzt wurde
