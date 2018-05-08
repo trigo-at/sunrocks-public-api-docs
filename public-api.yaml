@@ -65,6 +65,10 @@ paths:
           type: file
           description: Rechnung (PDF)
         - in: formData
+          name: invoiceNumber
+          type: string
+          description: Rechnungsnummer (optional - wird nicht automatisch aus dem Filenamen uebernommen)
+        - in: formData
           name: storeNumber
           type: string
           required: true
