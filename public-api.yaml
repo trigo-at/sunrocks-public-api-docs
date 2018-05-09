@@ -107,7 +107,7 @@ paths:
           name: retailPrice
           type: number
           required: true
-          description: Verkaufspreis lt. Rechnung
+          description: Verkaufspreis lt. Rechnung (muss innerhalb des Abdeckungsbereiches der verlinkten Versicherung liegen. Wenn nicht wird ein Fehler (404-Bad Request) geliefert)
         - in: formData
           name: insuranceRetailPrice
           type: number
