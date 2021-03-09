@@ -168,6 +168,97 @@ paths:
           format: email
           required: true
           description: E-Mail Adresse
+  /grave-insurances:
+    post:
+      summary: create grave insurance entry
+      produces:
+        - application/json
+        - application/xml
+      consumes:
+        - multipart/form-data
+      responses:
+        '201':
+          description: Created
+          schema:
+            type: object
+            properties:
+              insurance_id:
+                type: string
+            xml:
+              name: CreateGraveInsuranceResponse
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      parameters:
+        - in: formData
+          name: invoice
+          type: file
+          description: Rechnung (PDF, JPEG, PNG)
+        - in: formData
+          name: storeNumber
+          type: string
+          required: true
+          description: Filialen ID (wird pro Filiale bekannt gegeben)
+        - in: formData
+          name: insuranceCode
+          type: string
+          required: true
+          description: Code der gewählten Versicherung
+        - in: formData
+          name: inceptionDate
+          type: string
+          format: date
+          required: true
+          description: Versicherungsbeginn
+        - in: formData
+          name: graveNumber
+          type: string
+          required: true
+          description: Identifikationsnnummer des Grabes (Grabadresse)
+        - in: formData
+          name: sellingDate
+          type: string
+          format: date
+          required: true
+          description: Verkaufsdatum
+        - in: formData
+          name: customerNumber
+          type: string
+          required: true
+          description: Kundennummer (aus externem System)
+        - in: formData
+          name: customerName
+          type: string
+          required: true
+          description: Vor- und Nachname
+        - in: formData
+          name: street
+          type: string
+          required: true
+          description: Straße + Nummer
+        - in: formData
+          name: zipCode
+          type: string
+          required: true
+          description: PLZ
+        - in: formData
+          name: city
+          type: string
+          required: true
+          description: Stadt
+        - in: formData
+          name: country
+          type: string
+          description: Land (optional)
+        - in: formData
+          name: email
+          type: string
+          format: email
+          required: true
+          description: E-Mail Adresse
   # /claims:
     # post:
       # summary: create new claim
