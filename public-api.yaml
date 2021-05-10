@@ -10,31 +10,31 @@ basePath: /api/public
 schemes:
   - https
 paths:
-  /insurances:
-    get:
-      summary: List of insurances
-      produces:
-        - application/json
-        - application/xml
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            type: object
-            properties:
-              count:
-                type: integer
-              insurances:
-                type: array
-                items:
-                  $ref: '#/definitions/Insurance'
-                xml:
-                  name: Insurances
-                  wrapped: true
-            xml:
-              name: InsuranceResponse
-      security:
-        - api_key: []
+  # /insurances:
+    # get:
+      # summary: List of insurances
+      # produces:
+        # - application/json
+        # - application/xml
+      # responses:
+        # '200':
+          # description: successful operation
+          # schema:
+            # type: object
+            # properties:
+              # count:
+                # type: integer
+              # insurances:
+                # type: array
+                # items:
+                  # $ref: '#/definitions/Insurance'
+                # xml:
+                  # name: Insurances
+                  # wrapped: true
+            # xml:
+              # name: InsuranceResponse
+      # security:
+        # - api_key: []
   /sales:
     post:
       summary: create sale entry
