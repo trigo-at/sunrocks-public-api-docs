@@ -10,6 +10,12 @@ basePath: /api/public
 schemes:
   - https
 paths:
+  /alive:
+    get:
+      summary: status of API
+      responses:
+        '204':
+          description: no content
   # /insurances:
     # get:
       # summary: List of insurances
