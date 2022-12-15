@@ -270,128 +270,128 @@ paths:
           format: email
           required: true
           description: E-Mail Adresse
-  # /claims:
-    # post:
-      # summary: create new claim
-      # produces:
-        # - application/json
-        # - application/xml
-      # consumes:
-        # - multipart/form-data
-      # responses:
-        # '201':
-          # description: successful created
-          # schema:
-            # type: object
-            # properties:
-              # claimNumber:
-                # type: string
-              # state:
-                # type: string
-            # xml:
-              # name: CreateClaimResponse
-        # '400':
-          # description: Bad Request
-        # '401':
-          # description: Unauthorized
-        # '403':
-          # description: Forbidden
-      # parameters:
-        # - in: formData
-          # name: claimNumber
-          # type: string
-          # required: true
-          # description: Externe Ticketnummer
-        # - in: formData
-          # name: repairInvoice
-          # type: file
-          # required: true
-          # description: Reparaturrechnung
-        # - in: formData
-          # name: invoice
-          # type: file
-          # description: Rechnung (PDF)
-          # required: true
-        # - in: formData
-          # name: complain
-          # type: file
-          # required: true
-          # description: Polizeiliche Anzeige
-        # - in: formData
-          # name: image1
-          # type: file
-          # required: true
-          # description: Bild
-        # - in: formData
-          # name: image2
-          # type: file
-          # required: true
-          # description: Bild
-        # - in: formData
-          # name: image3
-          # type: file
-          # description: Bild
-        # - in: formData
-          # name: image4
-          # type: file
-          # description: Bild
-        # - in: formData
-          # name: image5
-          # type: file
-          # description: Bild
-        # - in: formData
-          # name: storeNumber
-          # type: string
-          # required: true
-          # description: Filialen ID (wird pro Filiale bekannt gegeben)
-        # - in: formData
-          # name: serialNumber
-          # type: string
-          # required: true
-          # description: Seriennummer
-        # - in: formData
-          # name: newSerialNumber
-          # type: string
-          # description: Neue Seriennummer
-        # - in: formData
-          # name: newSerialNumberReason
-          # type: string
-          # description: Grund füur neue Seriennummer
-        # - in: formData
-          # name: damageDate
-          # type: string
-          # format: date
-          # required: true
-          # description: Schadendatum
-        # - in: formData
-          # name: claimType
-          # type: string
-          # required: true
-          # enum:
-            # - burglary
-            # - robbery
-            # - vandalism
-            # - broken
-            # - fire
-            # - liquid
-            # - warranty
-            # - other
-          # description: Schadensart
-        # - in: formData
-          # name: description
-          # type: string
-          # required: true
-          # description: Beschreibung Hergang
-        # - in: formData
-          # name: fairValue
-          # type: number
-          # required: true
-          # description: Schadenhöhe
-        # - in: formData
-          # name: replacementValue
-          # type: number
-          # required: true
-          # description: Neuwert am Schadentag
+  /claims:
+    post:
+      summary: create new claim. This endpoint is not functionaly yet!
+      produces:
+        - application/json
+        - application/xml
+      consumes:
+        - multipart/form-data
+      responses:
+        '201':
+          description: successful created
+          schema:
+            type: object
+            properties:
+              claimNumber:
+                type: string
+              state:
+                type: string
+            xml:
+              name: CreateClaimResponse
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      parameters:
+        - in: formData
+          name: claimNumber
+          type: string
+          required: true
+          description: Externe Ticketnummer
+        - in: formData
+          name: repairInvoice
+          type: file
+          required: true
+          description: Reparaturrechnung
+        - in: formData
+          name: invoice
+          type: file
+          description: Rechnung (PDF)
+          required: true
+        - in: formData
+          name: complain
+          type: file
+          required: true
+          description: Polizeiliche Anzeige
+        - in: formData
+          name: image1
+          type: file
+          required: true
+          description: Bild
+        - in: formData
+          name: image2
+          type: file
+          required: true
+          description: Bild
+        - in: formData
+          name: image3
+          type: file
+          description: Bild
+        - in: formData
+          name: image4
+          type: file
+          description: Bild
+        - in: formData
+          name: image5
+          type: file
+          description: Bild
+        - in: formData
+          name: storeNumber
+          type: string
+          required: true
+          description: Filialen ID (wird pro Filiale bekannt gegeben)
+        - in: formData
+          name: serialNumber
+          type: string
+          required: true
+          description: Seriennummer
+        - in: formData
+          name: newSerialNumber
+          type: string
+          description: Neue Seriennummer
+        - in: formData
+          name: newSerialNumberReason
+          type: string
+          description: Grund füur neue Seriennummer
+        - in: formData
+          name: damageDate
+          type: string
+          format: date
+          required: true
+          description: Schadendatum
+        - in: formData
+          name: claimType
+          type: string
+          required: true
+          enum:
+            - burglary
+            - robbery
+            - vandalism
+            - broken
+            - fire
+            - liquid
+            - warranty
+            - other
+          description: Schadensart
+        - in: formData
+          name: description
+          type: string
+          required: true
+          description: Beschreibung Hergang
+        - in: formData
+          name: fairValue
+          type: number
+          required: true
+          description: Schadenhöhe
+        - in: formData
+          name: replacementValue
+          type: number
+          required: true
+          description: Neuwert am Schadentag
 securityDefinitions:
   api_key:
     type: apiKey
