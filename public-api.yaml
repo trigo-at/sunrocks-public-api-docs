@@ -272,7 +272,7 @@ paths:
           description: E-Mail Adresse
   /claims:
     post:
-      summary: create new claim. This endpoint is not functionaly yet!
+      summary: create new claim. This endpoint is not functional yet!
       produces:
         - application/json
         - application/xml
