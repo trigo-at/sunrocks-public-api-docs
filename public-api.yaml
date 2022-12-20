@@ -4,7 +4,7 @@ info:
   title: SunRocks API
   termsOfService: 'http://sunrocks.co/terms/'
   contact:
-    email: david@trigo.at
+    email: helpdesk@trigo.at
 host: sunrocks.apps.trigo.io
 basePath: /api/public
 schemes:
