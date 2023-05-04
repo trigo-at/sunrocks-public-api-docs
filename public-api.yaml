@@ -1,56 +1,30 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
-  version: 3.0.1
+  version: 4.0.0
   title: SunRocks API
-  termsOfService: 'http://sunrocks.co/terms/'
+  termsOfService: "https://www.sunrocks.at/"
   contact:
-    email: helpdesk@trigo.at
-host: sunrocks.apps.trigo.io
-basePath: /api/public
+    email: office@sunrocks.at
+host: integration.sunrocks.at
 schemes:
   - https
 paths:
   /alive:
     get:
-      summary: status of API
+      summary: API Status
       responses:
-        '204':
+        "204":
           description: no content
-  # /insurances:
-    # get:
-      # summary: List of insurances
-      # produces:
-        # - application/json
-        # - application/xml
-      # responses:
-        # '200':
-          # description: successful operation
-          # schema:
-            # type: object
-            # properties:
-              # count:
-                # type: integer
-              # insurances:
-                # type: array
-                # items:
-                  # $ref: '#/definitions/Insurance'
-                # xml:
-                  # name: Insurances
-                  # wrapped: true
-            # xml:
-              # name: InsuranceResponse
-      # security:
-        # - api_key: []
-  /sales:
+  /insurances:
     post:
-      summary: create sale entry
+      summary: Neue Versicherung anlegen
       produces:
         - application/json
         - application/xml
       consumes:
         - multipart/form-data
       responses:
-        '201':
+        "201":
           description: Created
           schema:
             type: object
@@ -59,11 +33,11 @@ paths:
                 type: string
             xml:
               name: CreateSaleResponse
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       parameters:
         - in: formData
@@ -103,7 +77,7 @@ paths:
           name: model
           type: string
           required: true
-          description: 'Modell (zB iPhone 6S,...)'
+          description: "Modell (zB iPhone 6S,...)"
         - in: formData
           name: serialNumber
           type: string
@@ -113,7 +87,7 @@ paths:
           name: retailPrice
           type: number
           required: true
-          description: Verkaufspreis lt. Rechnung (muss innerhalb des Abdeckungsbereiches der verlinkten Versicherung liegen. Wenn nicht wird ein Fehler (404-Bad Request) geliefert)
+          description: Verkaufspreis lt. Rechnung (muss innerhalb des Abdeckungsbereiches der verlinkten Versicherung liegen. Wenn nicht wird ein Fehler (400-Bad Request) geliefert)
         - in: formData
           name: insuranceRetailPrice
           type: number
@@ -176,14 +150,14 @@ paths:
           description: E-Mail Adresse
   /grave-insurances:
     post:
-      summary: create grave insurance entry
+      summary: Neue Grabstellenversicherung anlegen
       produces:
         - application/json
         - application/xml
       consumes:
         - multipart/form-data
       responses:
-        '201':
+        "201":
           description: Created
           schema:
             type: object
@@ -192,11 +166,11 @@ paths:
                 type: string
             xml:
               name: CreateGraveInsuranceResponse
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       parameters:
         - in: formData
@@ -270,17 +244,166 @@ paths:
           format: email
           required: true
           description: E-Mail Adresse
-  /claims:
+  /offer:
     post:
-      summary: create new claim. This endpoint is not functional yet!
+      summary: Neues Angebot anlegen
       produces:
         - application/json
         - application/xml
       consumes:
         - multipart/form-data
       responses:
-        '201':
-          description: successful created
+        "201":
+          description: successfully created
+          schema:
+            type: object
+            properties:
+              offerId:
+                type: string
+            xml:
+              name: CreateOfferResponse
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      parameters:
+        - in: formData
+          name: storeNumber
+          type: string
+          required: true
+          description: Filialen ID (wird pro Filiale bekannt gegeben)
+        - in: formData
+          name: riskName
+          type: string
+          required: true
+          enum:
+            - elektrofahrrad
+            - fahrrad
+            - smartphone
+            - tablet
+            - notebook-pc
+            - wearables
+          description: Name des Risikos
+        - in: formData
+          name: manufacturer
+          type: string
+          description: Hersteller
+        - in: formData
+          name: model
+          type: string
+          description: Modellbezeichnung
+        - in: formData
+          name: identificationNumber
+          type: string
+          description: "Identifikationsnummer (Seriennummer, Rahmennnummer,...)"
+        - in: formData
+          name: retailPrice
+          type: number
+          required: true
+          description: Verkaufspreis lt. Rechnung
+        - in: formData
+          name: sellingDate
+          type: string
+          format: date
+          required: true
+          description: Verkaufsdatum
+        - in: formData
+          name: customerName
+          type: string
+          required: true
+          description: Firmenname (wenn Firma) oder Vor- und Nachname
+        - in: formData
+          name: isCompany
+          required: true
+          type: boolean
+          description: Firma ja/nein
+        - in: formData
+          name: inputTaxDeduction
+          type: boolean
+          required: true
+          description: Vorsteuerabzug ja/nein
+        - in: formData
+          name: street
+          type: string
+          required: true
+          description: Straße + Nummer
+        - in: formData
+          name: zipCode
+          type: string
+          required: true
+          description: PLZ
+        - in: formData
+          name: city
+          type: string
+          required: true
+          description: Stadt
+        - in: formData
+          name: country
+          type: string
+          description: Land (optional)
+        - in: formData
+          name: vat
+          type: string
+          description: UID Nummer; Pflichtfeld wenn inputTaxDeduction gesetzt wurde
+        - in: formData
+          name: email
+          type: string
+          format: email
+          required: true
+          description: E-Mail Adresse
+        - in: formData
+          name: phone
+          type: string
+          description: Telefonnummer
+  /update-identification-number:
+    post:
+      summary: Identifikationsnummer eines Angebots nachträglich aktualisieren
+      produces:
+        - application/json
+        - application/xml
+      consumes:
+        - multipart/form-data
+      responses:
+        "200":
+          description: successfully updated
+          schema:
+            type: object
+            properties:
+              offerId:
+                type: string
+            xml:
+              name: CreateOfferResponse
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      parameters:
+        - in: formData
+          name: identificationNumber
+          type: string
+          required: true
+          description: "Identifikationsnummer (Seriennummer, Rahmennnummer,...)"
+        - in: formData
+          name: offerId
+          type: string
+          format: uuid
+          required: true
+          description: ID des Angebotes
+  /claims:
+    post:
+      summary: Neuen Schadensfall anlegen
+      produces:
+        - application/json
+        - application/xml
+      consumes:
+        - multipart/form-data
+      responses:
+        "201":
+          description: successfully created
           schema:
             type: object
             properties:
@@ -290,11 +413,11 @@ paths:
                 type: string
             xml:
               name: CreateClaimResponse
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       parameters:
         - in: formData
@@ -303,6 +426,27 @@ paths:
           required: true
           description: Externe Ticketnummer
         - in: formData
+          name: claimType
+          type: string
+          required: true
+          enum:
+            - feuer-blitz
+            - bruchschaden
+            - displayschaden
+            - einbruchdiebstahl
+            - bedienungsfehler
+            - flüssigkeitsschaden
+            - sonstiges
+            - raub
+            - vandalismus
+            - garantieschaden
+            - diebstahl
+            - unfall
+            - akku-defekt
+            - identifikationsnummerntausch
+            - feuer-explosion
+          description: Schadensart
+        - in: formData
           name: repairInvoice
           type: file
           required: true
@@ -310,12 +454,11 @@ paths:
         - in: formData
           name: invoice
           type: file
-          description: Rechnung (PDF)
           required: true
+          description: Rechnung (PDF)
         - in: formData
           name: complain
           type: file
-          required: true
           description: Polizeiliche Anzeige
         - in: formData
           name: image1
@@ -345,38 +488,24 @@ paths:
           required: true
           description: Filialen ID (wird pro Filiale bekannt gegeben)
         - in: formData
-          name: serialNumber
+          name: identificationNumber
           type: string
           required: true
-          description: Seriennummer
+          description: "Identifikationsnummer (Seriennummer, Rahmennnummer,...)"
         - in: formData
-          name: newSerialNumber
+          name: newIdentificationNumber
           type: string
-          description: Neue Seriennummer
+          description: Neue Identifikationsnummer
         - in: formData
-          name: newSerialNumberReason
+          name: newIdentificationNumberReason
           type: string
-          description: Grund füur neue Seriennummer
+          description: Grund für neue Identifikationsnummer
         - in: formData
           name: damageDate
           type: string
           format: date
           required: true
           description: Schadendatum
-        - in: formData
-          name: claimType
-          type: string
-          required: true
-          enum:
-            - burglary
-            - robbery
-            - vandalism
-            - broken
-            - fire
-            - liquid
-            - warranty
-            - other
-          description: Schadensart
         - in: formData
           name: description
           type: string
@@ -397,29 +526,3 @@ securityDefinitions:
     type: apiKey
     name: x-api-key
     in: header
-definitions:
-  Insurance:
-    type: object
-    properties:
-      _id:
-        type: string
-        format: uuid
-      name:
-        type: string
-        description: Name
-      inputTaxDeduction:
-        type: boolean
-        default: false
-        description: Vorsteuerabzugsberechtigt
-      insuranceType:
-        type: string
-        description: Versicherungstyp (zB Elektronikversicherung o. Garantieversicherung)
-      deviceCategory:
-        type: string
-        description: 'Kategorie (Smartphone, Tablet, PC/Notebook)'
-      duration:
-        type: integer
-        default: 2
-        description: Laufzeit in Jahren
-    xml:
-      name: Insurance
