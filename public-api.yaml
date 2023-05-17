@@ -395,7 +395,7 @@ paths:
           description: ID des Angebotes
   /claims:
     post:
-      summary: Neuen Schadensfall anlegen
+      summary: Neuen Schadenfall anlegen
       produces:
         - application/json
         - application/xml
